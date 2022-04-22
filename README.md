@@ -1,12 +1,14 @@
-# Q Applet: Stock Quote - USA
+# Q Applet: Gitlab Notifications
 
-Displays stock quote changes on a Das Keyboard Q Series.
-Keys are assigned either a green or a red color depending on the stock
-trading higher or lower than the previous day's close
+Displays Gitlab notifications changes on a Das Keyboard Q Series.
 
-[GitHub repository](https://github.com/daskeyboard/q-applet-stock-quote)
+Not sure what I want to show yet, but it'll be cool.
+
+[GitHub repository](https://github.com/miketwo/gitlab-notifications)
 
 ## Example
+
+ToDo: Replace example
 
 ![Stock quote - USA on a Das Keybaord Q](assets/image.png "Q Stock quote - USA")
 
@@ -31,7 +33,7 @@ Pull requests welcome.
 
 ## Copyright / License
 
-Copyright 2014 - 2019 Das Keyboard / Metadot Corp.
+Copyright 2022 Michael Ricks-Aherne
 
 Licensed under the GNU General Public License Version 2.0 (or later);
 you may not use this work except in compliance with the License.

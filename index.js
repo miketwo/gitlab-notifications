@@ -17,69 +17,65 @@ function formatChange(number) {
   }
 }
 
-class StockQuote extends q.DesktopApp {
+class GitLabNotification extends q.DesktopApp {
 
   constructor() {
     super();
-    // run every 30 min
-    this.pollingInterval = 30 * 60 * 1000;
+    // run every 5 secs
+    this.pollingInterval = 5 * 1000;
   }
 
-  getQuote(symbol) {
-    return request.get({
-      url: apiUrl + `/stock/${symbol.trim().toUpperCase()}/quote?token=${this.token}`,
-      json: true
-    });
-  }
+  // getQuote(apiUrl, access_token) {
+  //   const options = {
+  //     uri: apiUrl,
+  //     headers: {
+  //         'PRIVATE-TOKEN': access_token
+  //     },
+  //     json: true // Automatically parses the JSON string in the response
+  //   };
+
+  //   return request(options);
+  // }
 
   generateSignal(quote) {
-    const symbol = quote.symbol;
-    const companyName = quote.companyName;
-    const previousClose = quote.previousClose * 1;
-    const latestPrice = quote.latestPrice * 1;
-
-    const change = formatChange((latestPrice - previousClose));
-    const changePercent = formatChange(change / previousClose * 100);
-
-    const color = (latestPrice >= previousClose) ? '#00FF00' : '#FF0000';
+    const randomColor = Math.floor(Math.random()*16777215).toString(16);
+    const color = "#" + randomColor;
 
     return new q.Signal({
       points: [
         [new q.Point(color)]
       ],
       link: {
-        url: 'https://iextrading.com/apps/stocks/'+`${symbol}`,
-        label: 'Show in IEX',
+        url: 'https://google.com',
+        label: 'Placeholder',
       },
-      name: `Stock Quote: ${symbol}`,
-      message: `${symbol} (${companyName}): ` +
-        `USD ${latestPrice} (${change} ${changePercent}%)` +
-        `<br/>Previous close: USD ${previousClose}`
+      name: `Placeholder:`,
+      message: `Placeholder`
     });
   }
 
   async run() {
-    logger.info("Stock quote USA running.");
-    const symbol = this.config.symbol;
-    if (symbol) {
-      logger.info("My symbol is: " + symbol);
-      return this.getQuote(symbol).then(quote => {
-        return this.generateSignal(quote);
-      }).catch((error) => {
-        logger.error("Error while getting stock quote USA:" + error);
-        if(`${error.message}`.includes("getaddrinfo")){
-          // Do not signal
-          // return q.Signal.error(
-          //   'The Stock Quote USA service returned an error. <b>Please check your internet connection</b>.'
-          // );
-        }else{
-          return q.Signal.error([`The Stock Quote USA service returned an error. Detail: ${error}`]);
-        }
-      });
-    } else {
-      logger.info("No symbol configured.");
-      return null;
-    }
+    logger.info("Gitlab notifications running.");
+    return generateSignal();
+    
+    // const access_token = this.config.access_token;
+
+    // API="${CI_API_V4_URL}/projects/${CI_PROJECT_ID}"
+    // AUTH_HEADER="PRIVATE-TOKEN: ${GITLAB_PRIVATE_TOKEN}"
+    // CHILD_PIPELINES=$(curl -sS --header "${AUTH_HEADER}" "${API}/pipelines/${CI_PIPELINE_ID}/bridges")
+
+    // if (symbol) {
+    //   logger.info("My symbol is: " + symbol);
+    //   return this.getQuote(symbol).then(quote => {
+    //     return this.generateSignal(quote);
+    //   }).catch((error) => {
+    //     logger.error("Error while hitting API:" + error);
+    //     return q.Signal.error([`The GitLab Notification service returned an error: ${error}`]);
+    //   });
+    // } else {
+    //   logger.info("No symbol configured.");
+    //   return null;
+    // }
   }
 
   async applyConfig() {
@@ -105,7 +101,7 @@ class StockQuote extends q.DesktopApp {
 
 module.exports = {
   formatChange: formatChange,
-  StockQuote: StockQuote
+  GitLabNotification: GitLabNotification
 };
 
-const applet = new StockQuote();
+const applet = new GitLabNotification();
