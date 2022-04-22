@@ -1,0 +1,58 @@
+{
+  "name": "daskeyboard-applet--stock-quote-usa",
+  "displayName": "Stock Quote - USA",
+  "version": "1.0.10",
+  "description": "Displays stock quote.",
+  "longDescription": "Monitor your favorite stock tickers and stay on top of the stock market.",
+  "officialProductName": "Stock quote - USA",
+  "appUrl": "",
+  "publisherName": "Das Keyboard",
+  "publisher": "Das Keyboard",
+  "isSingleton": false,
+  "videoUrl": "",
+  "icon": "assets/icon.png",
+  "image": "assets/image-missing.png",
+  "authorName": "Das Keyboard",
+  "authorUrl": "https://twitter.com/daskeyboard",
+  "issuesUrl": "https://github.com/daskeyboard/q-applet-stock-quote/issues",
+  "homePageUrl": "https://github.com/daskeyboard/q-applet-stock-quote",
+  "developerRepoUrl": "https://github.com/daskeyboard/q-applet-stock-quote",
+  "licenseUrl": "http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt",
+  "changelogUrl": "CHANGELOG.md",
+  "license": "MIT",
+  "readMeUrl": "README.md",
+  "readMeEndUserUrl": "README_ENDUSER.md",
+  "dependencies": {
+    "daskeyboard-applet": "^2.11.1"
+  },
+  "engines": {
+    "das-keyboard-q": "3.0.0"
+  },
+  "applet": {
+    "defaults": {}
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "qConfig": {
+    "geometry": {
+      "width": 1,
+      "height": 1
+    },
+    "questions": [
+      {
+        "key": "symbol",
+        "label": "Enter stock ticker",
+        "help": "You can find the stock ticker on the web",
+        "required": true,
+        "order": 1,
+        "controlType": "textbox",
+        "value": "AAPL"
+      }
+    ]
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
+}
