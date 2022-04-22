@@ -5,19 +5,7 @@ const logger = q.logger;
 const apiUrl = 'https://cloud.iexapis.com/v1';
 
 
-function round(number) {
-  return number.toFixed(2);
-}
-
-function formatChange(number) {
-  if (number >= 0) {
-    return `+${round(number)}`;
-  } else {
-    return `${round(number)}`;
-  }
-}
-
-class GitLabNotification extends q.DesktopApp {
+class GitLab extends q.DesktopApp {
 
   constructor() {
     super();
@@ -37,26 +25,23 @@ class GitLabNotification extends q.DesktopApp {
   //   return request(options);
   // }
 
-  generateSignal(quote) {
+  generateSignal() {
     const randomColor = Math.floor(Math.random()*16777215).toString(16);
     const color = "#" + randomColor;
+    logger.info(`Selected color is ${color}`)
 
     return new q.Signal({
       points: [
         [new q.Point(color)]
       ],
-      link: {
-        url: 'https://google.com',
-        label: 'Placeholder',
-      },
-      name: `Placeholder:`,
+      name: `Placeholder`,
       message: `Placeholder`
     });
   }
 
   async run() {
     logger.info("Gitlab notifications running.");
-    return generateSignal();
+    return this.generateSignal();
     
     // const access_token = this.config.access_token;
 
@@ -78,30 +63,29 @@ class GitLabNotification extends q.DesktopApp {
     // }
   }
 
-  async applyConfig() {
-    const symbol = this.config.symbol;
+  // async applyConfig() {
+  //   const symbol = this.config.symbol;
 
-    var tokenRequest = await request.get({
-        url: `https://q.daskeyboard.com/api/1.0/misc/get_stock_quote_token`,
-        json: true
-      });
+  //   var tokenRequest = await request.get({
+  //       url: `https://q.daskeyboard.com/api/1.0/misc/get_stock_quote_token`,
+  //       json: true
+  //     });
 
-    this.token = tokenRequest.value;
+  //   this.token = tokenRequest.value;
 
-    if (symbol) {
-      return this.getQuote(symbol).then((response) => {
-        return true;
-      }).catch((error) => {
-        throw new Error("Error validating symbol: " + symbol, error);
-      });
-    }
-  }
+  //   if (symbol) {
+  //     return this.getQuote(symbol).then((response) => {
+  //       return true;
+  //     }).catch((error) => {
+  //       throw new Error("Error validating symbol: " + symbol, error);
+  //     });
+  //   }
+  // }
 }
 
 
 module.exports = {
-  formatChange: formatChange,
-  GitLabNotification: GitLabNotification
+  GitLab: GitLab
 };
 
-const applet = new GitLabNotification();
+const applet = new GitLab();

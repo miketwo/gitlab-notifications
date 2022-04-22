@@ -23,7 +23,8 @@
   "readMeUrl": "README.md",
   "readMeEndUserUrl": "README_ENDUSER.md",
   "dependencies": {
-    "daskeyboard-applet": "^2.11.1"
+    "daskeyboard-applet": "^2.11.1",
+    "request-promise": "^4.2.2"
   },
   "engines": {
     "das-keyboard-q": "3.0.0"
